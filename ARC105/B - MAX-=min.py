@@ -7,4 +7,3 @@ while(min(A) != max(A)):
   if(min(A) == max(A)):break
 print(A[0])
 #最大値のIndexを返す関数MaxIndex
-
