@@ -1,16 +1,11 @@
 X,Y,A,B = list(map(int,input().split()))
 exp = 0
 
-while(X*A<Y or X+B<Y):
-  if (X*A) - X <= B:
+while (X*A < Y and (X*A)-X <= B):
     X *= A
     exp += 1
-    print("X:"+str(X))
-    print("exp:"+str(exp))
-#    print(exp)
-  else:
-    X += B
-    exp += 1
-    print("X:"+str(X))
-    print("exp:"+str(exp))
-#    print(exp)
+#-1しないと、「レベルアップまであとY」のYの値だけ稼ぐことになる。
+print( exp + (Y -1- X)//B )
+print((Y -1- X))
+print( exp + (Y - X)//B )
+print(Y - X)
