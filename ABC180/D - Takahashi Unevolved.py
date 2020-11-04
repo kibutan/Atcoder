@@ -6,6 +6,3 @@ while (X*A < Y and (X*A)-X <= B):
     exp += 1
 #-1しないと、「レベルアップまであとY」のYの値だけ稼ぐことになる。
 print( exp + (Y -1- X)//B )
-print((Y -1- X))
-print( exp + (Y - X)//B )
-print(Y - X)
