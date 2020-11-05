@@ -1,11 +1,10 @@
 N = int(input())
 A = list(map(int,input().split()))
+Ruisekiwa = [0]*(len(A)+1)
+for k in range(len(A)):
+  Ruisekiwa[k+1] = Ruisekiwa[k]+A[k]
 ans = 0
 for i in range(N-1):
-#  print("i:"+str(i))
-  for j in range(i+1,N):
-#    print("j:"+str(j))
-#    print(str(A[i]*A[j]))
-    ans += (A[i]*A[j])
+  ans += A[i]*(Ruisekiwa[len(Ruisekiwa)-1]-Ruisekiwa[i+1])
 print(ans%(1000000007))
   
