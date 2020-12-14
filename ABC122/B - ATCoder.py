@@ -1,16 +1,11 @@
 import re
 S = input()
-length = 0
 ans = 0
 t = ""
 for i in S:
   t += i
-#  print(t)
-  if(re.findall('A|G|T|C',t[-1])):length += 1
+  if(re.findall('A|G|T|C',t[-1])):continue
   else: 
-#    print("t is not ACTG:" + str(t[-1]))
+    ans = max(ans,len(t)-1)
     t = ""
-    ans = max(ans,length,len(t))
-    length=0
-#    print(ans)
-print(max(ans,length))
+print(max(ans,len(t)))
