@@ -1,3 +1,5 @@
+#TLE
+
 N = int(input())
 S = input()
 i_list =[]
