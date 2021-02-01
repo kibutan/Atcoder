@@ -3,31 +3,42 @@
 n,m = list(map(int,input().split()))
 ks = [list(map(int,input().split())) for _ in range(m)]
 p = list(map(int,input().split()))
-cnt = 0
-on = 0
+cnt =0
+ans = 0
+on = []
+k = []
+s = []
+for i in range(m):
+  k.append(ks[i][0])
+  s.append(ks[i][1:])
+#print("ks",ks)
+#print("k",k)
+#print("s",s)
+#for i in range(2**n):
+#  flag = 1
+#  bit = []
+#  for j in range(n):
+#    if((i >> j)&1):
+#      bit.append(j+1)
+#  print(bit)
 for i in range(2**n):
-  list = []
-  
+  flag = 1
+  bit = []
   for j in range(n):
-    print("j",j)
     if((i >> j)&1):
-      list.append(j+1) #Switch onの組み合わせをつくる[Swich1 on,Switch2 on]
-      k = ks[j][0]
-      s = ks[j][1:]
-      print("s",s)
-    for _ in list:
-      print("_",_)
-      print("_ in s = ",_ in s)
-      if(_ in s):
-        on += 1
-        print("switch",_,"is on")
-        print("power",j+1,"is",(on % 2 == p[j]))
-    if(on % 2 == p[j]):
-      print("True")
-      continue
-    else: 
-      print("False")
+      bit.append(j+1)
+#  print("bit",bit)
+  for x in range(m):
+    cnt = 0
+    for i in bit:
+#      print("i",i)
+#      print("s[",x,"]=",s[x],"have i = ",i," is",i in s[x])
+      if(i in s[x]):cnt += 1
+#    print("p[",x,"]=",p[x]," equal to cnt = ",cnt," % 2 is",cnt % 2 == p[x])
+    if(cnt % 2 != p[x]):
+#      print("Pass")
       break
-  print(list)
-  cnt += 1
-print(cnt)
+    elif(cnt%2 == p[x] and x == (m-1)):ans+=1
+print(ans)
+    
+  
