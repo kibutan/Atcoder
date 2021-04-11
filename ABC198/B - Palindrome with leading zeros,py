@@ -1,0 +1,10 @@
+n = int(input())
+ans = "No"
+
+def ispalindrome(str): return 1 if str == str[::-1] else 0
+
+for i in range(19):
+  if(ispalindrome("0"*i+str(n))):
+    print("Yes")
+    exit()
+print("No")
