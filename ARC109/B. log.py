@@ -1,20 +1,22 @@
 import sys
-import math
+from decimal import Decimal
 
 input  = sys.stdin.readline
 n = int(input())
 ok = 0
-ng = n + 2
+ng = 10**20
+# print(ok,ng)
 def is_ok(k):
     return
-total = (n*(1 + n))/2
-middle = math.ceil((ng + ok)/2)
+
+# n+1を切り出して1,2,...,xまで切り出せるときのxの値を知りたい。
 while(ng - ok > 1 ):
-    if(total > n):ng = middle
-    elif(total <= n):ok = middle
     middle = (ng + ok)//2
-    total = (middle*(1 + middle)) /2
+    total = (middle*(1 + middle))//2
+    if(total > (n+1)):ng = middle
+    elif(total <= (n+1)):ok = middle
+
 #     print("sum",total,"mid",middle)
 # print("ans",ok)
 # print("Log")
-print(n - (ok - 1))
+print(n-(ok-1))
