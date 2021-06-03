@@ -1,30 +1,18 @@
-N,M,K = list(map(int,input().split()))
-A = list(map(int,input().split()))
-Ruisekiwa_A = [0]*(N+1)
-B = list(map(int,input().split()))
-Ruisekiwa_B = [0]*(M+1)
-for k in range(N):
-  Ruisekiwa_A[k+1] = Ruisekiwa_A[k]+A[k]
-print(Ruisekiwa_A)
-for k in range(M):
-  Ruisekiwa_B[k+1] = Ruisekiwa_B[k]+B[k]
-print(Ruisekiwa_B)
+from itertools import accumulate
+import bisect
+
+n,m,k = list(map(int,input().split()))
+a = list(map(int,input().split()))
+b = list(map(int,input().split()))
+a_acc = [0] + list(accumulate(a))
+b_acc = list(accumulate(b))
+# print(a_acc)
+# print(b_acc)
 ans = 0
-j = 0
-b_cnt = 0
-for i in range(N+1): #List_Aは0から始まる
-  b_cnt = max([j for j, x in enumerate(Ruisekiwa_B) if x <= (K-Ruisekiwa_A[i])])
-  #Aを読む冊数を固定したときにBを何冊読むことができるかの計算式。
-  #Bの累積和をAを読んだときの残時間を超えないものをリストアップ、そのインデックスを入れる
-  print("---------")
-  print("Aを読む冊数"+str(i))
-  print("Timelimit:"+str(K))
-  print("Aを読んだのち残る時間"+str((K-Ruisekiwa_A[i])))
-  print("Bを読むのにかかる時間"+str((Ruisekiwa_B[b_cnt])))
-  
-  print("Bを読む冊数"+str(b_cnt))
-  #Aの冊数とBの冊数が答え
-  print("A+Bの冊数"+str(i + b_cnt))
-  print("---------")  
-  ans = max(ans, i+b_cnt)
-print("final:",ans)
+a_limit = bisect.bisect_right(a_acc,k)
+# print("a_limit",a_limit)
+for i in range(a_limit):
+    b_limit = bisect.bisect_right(b_acc,k-a_acc[i])
+    # print("a",i,"b_limit",b_limit)
+    ans = max(ans,i+b_limit)
+print(ans)
