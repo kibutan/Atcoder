@@ -1,3 +1,3 @@
 a,b = list(map(int,input().split()))
-if(b <= a*6):print("Yes")
+if(a*1 <= b and b <= a*6):print("Yes")
 else:print("No")
