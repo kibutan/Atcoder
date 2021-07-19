@@ -1,20 +1,19 @@
-from collections import deque
+from collections import Counter
 import sys
 input = sys.stdin.readline
 
-n,k = list(map(int,input().split()))
+n,k = map(int,input().split())
 c= list(map(int,input().split()))
-queue = deque([])
 
-for i in range(k):
-    queue.append(c[i])
-# print(queue)
-cnt = len(set(queue))
+cnt = Counter(c[:k])
+ans = len(cnt)
 
-for i in range(k,n):
-    # print(queue.popleft())
-    queue.popleft()
-    queue.append(c[i])
-    cnt = max(cnt,len(set(queue)))
-# print(queue)
-print(cnt)
+# print(cnt)
+for i in range(0,n-k):
+    cnt.update([c[k+i]])
+    if(cnt[c[i]] == 1):del cnt[c[i]]
+    else:cnt.subtract([c[i]])
+    ans = max(ans,len(cnt))
+    # print(cnt)
+    # print(len(cnt))
+print(ans)
