@@ -1,0 +1,12 @@
+n,k = list(map(int,input().split()))
+ab = [list(map(int,input().split())) for _ in range(n)]
+a,b = [list(i) for i in zip(*ab)]
+# print(a,b)
+a_remain = []
+for i in range(n):
+    a_remain.append(a[i] - b[i])
+# print(a_remain)
+
+a_remain = sorted(a_remain + b)
+# print(a_remain)
+print(sum(a_remain[-k:]))
