@@ -28,34 +28,23 @@ class UnionFind():
         self.parents[y] = x
     
     def same(self, x,y):
-        return self.find(x) == self.find(y) 
+        return self.find(x) == self.find(y)
 
-class UnionFindLabel(UnionFind):
-    def __init__(self, labels):
-        assert len(labels) == len(set(labels))
-        
-        self.n = len(labels)
-        self.parents = [-1] * self.n
-        self.d = {x: i for i, x in enumerate(labels)}
-        self.d_inv = {i: x for i, x in enumerate(labels)}
+    def all_group_members(self):
+        group_members = defaultdict(list)
+        for member in range(self.n):
+            group_members[self.find(member)].append(member)
+        return group_members
 
-    def find_label(self, x):
-        return self.d_inv[super().find(self.d[x])]
+    def __str__(self):
+        return '\n'.join(f'{r}: {m}' for r, m in self.all_group_members().items())
 
-    def union(self, x, y):
-        super().union(self.d[x],self.d[y])
+def to_index(haight, width):
+    global w
+    return haight * w + width
 
-    def same(self, x, y):
-        return super().same(self.d[x],self.d[y])
 
-label = []
-for i in range(h):
-    for j in range(w):
-        label.append((i,j))
-
-# print(label)
-
-ufl = UnionFindLabel(label)
+uf = UnionFind(h*w)
 # print("--Typ90----")
 
 for i in range(Q):
@@ -69,13 +58,18 @@ for i in range(Q):
         # 塗った箇所の4方をチェックしcolor = 1の箇所が有ればUnionする。
         # 塗るたびに4方を確認させることですでに周りが赤い時も正しくUnionできそう。
         for k in [(0,-1),(-1,0),(0,1),(1,0)]:
+            # ufは1次元としているため、to_indexで1次元化する
+            point1 = to_index((q[i][1] -1) + k[0],q[i][2]-1 + k[1])
+            point2 = to_index(q[i][1] -1 ,+ q[i][2]-1)
             # 塗った隣が枠からはみ出るとき(q[i][1]-1 + k[0] >wとか)はContinueする
             if (q[i][1]-1 + k[0] >= h or q[i][1]-1 + k[0] < 0
                 or q[i][2] - 1 + k[1] >= w or q[i][2]-1 + k[1] < 0):continue
             # 塗った隣がcolor = 1の時、Unionする
             if color[ (q[i][1] -1) + k[0] ][q[i][2]-1 + k[1] ] == 1:
-                ufl.union(((q[i][1] -1) + k[0], q[i][2]-1 + k[1] ),(q[i][1] -1 , q[i][2] -1))
+                uf.union(point1,point2)
+        # print(uf)
     else:
-        if ufl.same((q[i][1]-1,q[i][2]-1),(q[i][3]-1,q[i][4]-1)) and color[q[i][1] -1][q[i][2] -1] == 1 and color[q[i][3] -1][q[i][4] -1] == 1:
+        # print(uf)
+        if uf.same((q[i][1]-1)*w+q[i][2]-1,(q[i][3]-1)*w+q[i][4]-1) and color[q[i][1] -1][q[i][2] -1] == 1 and color[q[i][3] -1][q[i][4] -1] == 1:
             print("Yes")
         else:print("No")
