@@ -1,0 +1,5 @@
+s = input()
+if(len(set(s)) == 1):print(-1)
+elif(s[0] == s[1]):print(s[2])
+elif(s[0] == s[2]):print(s[1])
+else:print(s[0])
