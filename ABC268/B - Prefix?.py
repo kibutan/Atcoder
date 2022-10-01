@@ -1,0 +1,6 @@
+s = input()
+t = input()
+n = len(s)
+if(n > len(t)):print("No")
+elif(t[:n] == s):print("Yes")
+else:print("No")
