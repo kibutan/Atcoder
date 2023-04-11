@@ -1,0 +1,5 @@
+k = int(input())
+a_str,b_str=input().split()
+a = int(a_str,k)
+b = int(b_str,k)
+print(a*b)
