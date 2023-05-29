@@ -1,0 +1,5 @@
+n = input()
+s=input().replace("0","o").replace("1","l")
+t=input().replace("0","o").replace("1","l")
+if(s == t):print("Yes")
+else:print("No")
